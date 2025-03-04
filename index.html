@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skript Help</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            padding: 12px 25px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            padding-top: 80px; /* Adds space for the navbar */
+            margin-top: 80px; /* Ensures content doesn't hide behind the navbar */
+        }
+
+        details {
+            background-color: #3b3b3b;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        summary {
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        pre {
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Skript Help</a>
+        <a href="skript-ai.html">Skript AI</a>
+    </div>
+
+    <div class="container">
+        <h1>Skript Help</h1>
+        <p>How to use Skript:</p>
+
+        <p>There's a lot to know about Skript, so let's start with the basics.</p>
+        <p>After every ":" you have to indent the next line 1 time.</p>
+        <p>If you want to add more to a section, go from that same line and keep writing. Here's an example:</p>
+        <details>
+            <summary>Example</summary>
+            <pre>on right click:
+                if player is sneaking:
+                    spawn chicken at player's location
+                if player isn't sneaking:
+                    spawn cow at player's location</pre>
+            <p>So now if the player is sneaking, it spawns a chicken, but if they aren't, it spawns a cow.</p>
+        </details>
+
+        <p>Down below are more Skript Tutorials</p>
+
+        <details>
+            <summary>Commands</summary>
+            <p>There's a couple of things to know about commands</p>
+            <p>1) The "trigger:" always comes last</p>
+            <p>2) Permission is who can use the command, such as an operator</p>
+            <pre>permission: op</pre>
+            <p>3) Cooldown is how long it takes before being able to use the command again</p>
+            <pre>cooldown: 5 seconds</pre>
+            <p>The Cooldown message is the message the player gets for trying to use the command before the cooldown is over</p>
+            <pre>cooldown message: must wait 5 seconds before using this command again</pre>
+            <p>Trigger is what makes the command work; without it, the command doesn't work.</p>
+            <pre>trigger:</pre>
+            <p>Let's say you want to make a duplication command that duplicates the item in the player's hand:</p>
+            <pre>command /dupe:
+    permission: op
+    cooldown: 5 seconds
+    cooldown message: must wait 5 seconds before using this command again
+    trigger:
+        #code
+            </pre>
+            <p>Arguments are the second part of the command.</p>
+            <p>For example:</p>
+            <pre>/tp gamerkid gamerguy</pre>
+            <p>That command teleports gamerkid to gamerguy, gamerkid and gamerguy are both arguments.</p>
+            <p>A better example is in the code:</p>
+            <pre>command /dupe < player >:
+    trigger:
+        #code</pre>
+            <p>Make sure to delete the space between the two "<>"</p>
+            <p>Basically, what < player > does is find a player to target the command to, just like the teleport command.</p>
+            <p>If I want to send a message to a player after giving them a diamond, I would do:</p>
+            <pre>command /diamond < player > < text >:
+    trigger:
+        give arg-1 1 of diamond
+        send arg-2 to arg-1</pre>
+            <p>arg-1 is the player and arg-2 is the text. If the text comes first, then text will be arg-1 and the player would be arg-2.</p>
+            <p>And Lastly Aliases, aliases are a short version of a command so instead of typing /teleport you could type /tp</p>
+            <pre>command /aliases:
+    aliases: /ali, /a</pre>
+        </details>
+
+        <details>
+            <summary>Abilities</summary>
+            <p>Abilities can be really easy or really difficult, but they're in almost all plugins.</p>
+            <p>There are different sections for different things, so if I wanted to right-click a diamond sword to spawn a chicken, I would do:</p>
+            <pre>on right click:
+    if player's held item is diamond sword:
+        spawn chicken at player's location</pre>
+            <p>You can also set a variable by doing:</p>
+            <pre>set {name} to diamond sword</pre>
+            <p>Most of the time, the variables are made in the "on load:" section so that they don't have to manually set the variable with a command or ability.</p>
+            <pre>on load:
+    set {sword} to diamond sword named "Ability Sword" with lore "Right Click for Cool Abilities"
+    set custom model data of {sword} to 1
+    set string tag "ID" of {sword} to "sword"</pre>
+            <p>Setting a custom model data will make the item its own item and not get confused with another diamond sword/item.</p>
+            <p>You can also make text colorful by using "&" and a color code. An easy way to find the color code is by using this site: https://www.digminecraft.com/lists/color_list_pc.php and looking at the chat codes.</p>
+            <pre>send "&cRed Text" to player</pre>
+            <p>Another fundamental part of coding abilities, you don’t want the player to be able to use the ability every second.</p>
+            <p>There are a couple of different cooldowns you can do, but this will discuss two easy ones:</p>
+            <pre>if difference between now and {cooldown::%uuid of player%} is less than 3 minutes:
+    send action bar "&cWait %difference between 2 minutes and (difference between now and {cooldown::%uuid of player%})% before you can use this ability again"
+    else:
+        set {cooldown::%uuid of player%} to now</pre>
+            <p>Another thing to discuss is if-else statements. An if-else statement is pretty much what it sounds like, and if you know basic coding, you know what this is.</p>
+            <p>An example is: if the player is holding an iron sword, do this, else, do that.</p>
+            <pre>on right click:
+    if player's held item is {sword}:
+        #code
+    else:
+        #code</pre>
+        </details>
+
+        <details>
+            <summary>Variables & Lists</summary>
+            <p>Variables are little storage containers for items along with lists. An example would be if I wanted to set a sword to a variable and give the variable to a player:</p>
+            <pre>on load:
+    set {variable} to diamond sword named "&cTest Variable" with lore "This is a Variable!"
+
+command /variable < player >:
+    trigger:
+        if arg-1 is set:
+            give arg-1 1 of {variable}
+        else:
+            give player 1 of {variable}</pre>
+            <p>To make the code neater, skip 1 line after changing a topic:</p>
+            <pre>on load:
+
+command /neat:
+
+on right click:</pre>
+            <p>It helps understand the code easier, and there’s less clutter.</p>
+            <p>A list is multiple items in a variable, so if I wanted to make a kit for a player:</p>
+            <pre>on load:
+    set {kit::*} to diamond sword, diamond helmet, diamond chestplate, diamond leggings, and diamond boots
+
+command /kit:
+    trigger:
+        give player {kits::*}</pre>
+            <p>you can also set a variable to a helmet and set the player's helmet to that variable</p>
+            <pre>on load:
+    set {helmet} to diamond helmet named "helmet"
+
+command /helmet:
+    trigger:
+        set player's helmet to {helmet}</pre>
+        </details>
+        
+        <details>
+            <summary>Effects</summary>
+            <p>Effects are kind of weird, to apply an effect you'd have to do</p>
+            <pre>apply strength to player for 30 seconds</pre>
+        </details>
+
+        <details>
+            <summary>Syntax</summary>
+            <p>Syntax is probably the hardest part about code, its learning how to read examples of code and the errors when you reload the code.</p>
+            <pre>[on] first (join|login)</pre>
+            <pre>on first join:</pre>
+            <p>The values "event-string" are event-player, and event-world</p>
+            <p>Errors are really easy to read they pretty much tell you what you need to fix and where the error is</p>
+<pre>[14:06:18 INFO] Line 28: (filename.sk)
+
+[14:06:18 INFO] indentation error: expected 4 spaces, but found 8 spaces
+
+[14:06:18 INFO] Line: trigger:
+
+[14:06:18 INFO]
+
+[14:06:18 INFO] Line 29: (filename.sk)
+
+[14:06:18 INFO] indentation error: expected 4 spaces, but found 8 spaces
+
+[14:06:18 INFO] Line: give player 1 of {playerhead}
+
+[14:06:18 INFO]
+
+[14:06:18 INFO] Line 26: (filename.sk)
+
+[14:06:18 INFO] Required entry 'trigger' is missing
+
+[14:06:18 INFO] Line: command /revive:</pre>
+        <p>Once you fix it it should say</p>
+        <pre>[Skript] Successfully reloaded filename.sk. (44ms)</pre>
+        </details>
+
+        <details>
+            <summary>"Combining" Code / Writing Code in the same line</summary>
+            <p>When writing code it could get really messy so instead of having multiple on right click events you could just do all the effects in the same event</p>
+            <pre>on right click:
+    if player's held item is {neat}:
+        if player isn't sneaking:
+            apply strength to player for 10 seconds
+            send action bar "&cYou have &4Strength &cfor 10 seconds!"
+        else:
+            apply water breathing to player for 10 seconds
+            send action bar "&cYou can now &3Breathe Underwater &cfor 10 seconds!"
+    else:
+        send action bar "&cMust unsneak to use this ability"</pre>
+        <p>Wherever your if statement starts if you want it to do something else if the player ISNT doing that if statement place an "else" under it and continue</p>
+        </details>
+
+    </div>
+
+</body>
+</html>

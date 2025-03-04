@@ -1,0 +1,31 @@
+details {
+    background-color: #3b3b3b;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+details[open] {
+    animation: dropDown 0.5s ease-in-out;
+}
+
+summary {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+}
+
+@keyframes dropDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

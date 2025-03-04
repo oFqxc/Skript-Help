@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skript AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            padding: 12px 25px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #2b2b2b;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            padding-top: 80px; /* Adds space for the navbar */
+            margin-top: 80px; /* Ensures content doesn't hide behind the navbar */
+        }
+
+        .chatbox {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .chatbox .user, .chatbox .bot {
+            color: white; /* Set both user and bot messages to white */
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #2196f3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0d8bf2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Skript Help</a>
+        <a href="skript-ai.html">Skript AI</a>
+    </div>
+
+    <div class="container">
+        <h1>Ask Skript AI about Skript</h1>
+
+        <div class="chatbox" id="chatbox">
+            <div class="bot">Hello! I'm Skript AI. Ask me anything about Skript!</div>
+        </div>
+
+        <input type="text" id="userInput" placeholder="Ask something..." />
+        <button onclick="askQuestion()">Send</button>
+    </div>
+
+    <script>
+        const predefinedAnswers = {
+            "action bar": "To make an action bar in Skript, you can use:\n`send action bar \"action bar\"`",
+            "ability": "To create an ability in Skript, you can check the following:\n`on right click:\n    if player's held item is an iron sword:\n        damage target entity by 1`",
+            "cooldown": "To create a cooldown in Skript, use:\n`if difference between now and {cooldown::%uuid of player%} is less than 5 minutes:\n    send action bar \"Wait before you can use this ability again!\"`",
+            "command": "To create a command in Skript:\n`command /test <text>:\n    permission: op\n    trigger:\n        if arg-1 = \"hi\":\n            send \"hi\" to player`",
+            "default": "I'm sorry, I don't understand that question. Can you try asking something else?"
+        };
+
+        function askQuestion() {
+            const userInput = document.getElementById("userInput").value.trim();
+            const chatbox = document.getElementById("chatbox");
+
+            if (userInput) {
+                // Display user input in chatbox
+                chatbox.innerHTML += `<div class="user">You: ${userInput}</div>`;
+                document.getElementById("userInput").value = ''; // Clear input field
+
+                // Check for a predefined answer
+                let botResponse = predefinedAnswers["default"];
+                for (const key in predefinedAnswers) {
+                    if (userInput.toLowerCase().includes(key)) {
+                        botResponse = predefinedAnswers[key];
+                        break;
+                    }
+                }
+
+                // Display bot's response after a short delay
+                setTimeout(() => {
+                    chatbox.innerHTML += `<div class="bot">Skript AI: ${botResponse}</div>`;
+                    chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+                }, 500);
+            }
+        }
+    </script>
+
+</body>
+</html>
