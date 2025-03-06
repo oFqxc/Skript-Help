@@ -90,6 +90,7 @@
 
         <p>There's a lot to know about Skript, so let's start with the basics.</p>
         <p>After every ":" you have to indent the next line 1 time.</p>
+        <p>Never put a space between the "<>" for an argument</p>
         <p>If you want to add more to a section, go from that same line and keep writing. Here's an example:</p>
         <details>
             <summary>Example</summary>
@@ -265,6 +266,59 @@ command /helmet:
         <p>Wherever your if statement starts if you want it to do something else if the player ISNT doing that if statement place an "else" under it and continue</p>
         </details>
 
+        <details>
+            <summary>Recipes</summary>
+            <p>Recipes are really easy to make, think of a crafting table as a counting board, top left corner is 1 and bottom right corner is 9.
+                <p>You can make a shaped recipe which is a recipe where the items have to be in the exact place for it to be crafted or you can make a shapeless recipe where the items can be anywhere to make the item</p>
+                <p>to make a shaped recipe you'd do</p>
+                <pre>reigster new shaped recipe for [{item} | item] using [{item} | item], [{item} | item], [{item} | item], [{item} | item], [{item} | item], [{item} | item], [{item} | item], [{item} | item], and [{item} | item]</pre>
+                <p>If you want some of the items to be nothing just put "air", also if the item is placed in a variable such as a custom item you would use "{item}" if its a normal item just use "item"</p>
+                <pre>using diamond sword
+    using {rubysword}</pre>
+        </details>
+        
+        <details>
+            <summary>Canceling Events</summary>
+            <p>Canceling events is simple, if I dont want a player to sneak and use an ability I'd cancel the event</p>
+            <pre>on right click:
+    if player is sneaking:
+        cancel event
+    else:
+        #code</pre>
+            <p>Lets say you dont want an item to get damaged, despawn, or dropped... cancel the event.</p>
+            <pre>on item damage:
+    if event-item is ({item} | item):
+        cancel event
+    
+on item despawn:
+    if event-item is ({item} | item):
+        cancel event
+    
+on drop:
+    if event-item is ({item} | item):
+        cancel event</pre>
+            <p>you can also add multiple items by just putting a comma and the last item put a command and "and"</p>
+            <pre>on drop:
+    if event-item is ({item} | item), ({item} | item), ({item} | item), and ({item} | item):
+        cancel event</pre>
+            <p>you can add as many items as you want</p>
+        </details>
+
+        <details>
+            <summary>Tab Completions</summary>
+            <p>Tab completions are what come after the command so that when you click tab it auto completes your command, how do I do it? Theres two parts to a tab completions, 1 the command, and 2 the tab completion</p>
+            <pre>command /tabcomplete < text > < text >:
+    if arg-1 is "Test":
+        send "test complete" to player
+    if arg-2 is "Completion":
+        send "completion tested" to player
+    
+on tab complete of "/tabcomplete":
+    set tab completions for position 1 to "Test"
+    set tab completions for position 2 to "Completion"</pre>
+            <p>position 1 is the tab completion for arg-1 and position 2 is arg-2</p>
+            <h3>obviously theres no space between the "<>"</h3>
+        </details>
     </div>
 
 </body>
